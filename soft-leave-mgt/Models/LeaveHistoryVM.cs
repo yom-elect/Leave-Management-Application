@@ -17,7 +17,7 @@ namespace soft_leave_mgt.Models
         [Required]
         public DateTime EndtDate { get; set; }
         
-        public DetailsLeaveTypeVM LeaveType { get; set; }
+        public LeaveTypeVM LeaveType { get; set; }
         public int LeaveTypeId { get; set; }
         public IEnumerable<SelectListItem> LeaveTypes { get; set; }
         public DateTime DateRequested { get; set; }

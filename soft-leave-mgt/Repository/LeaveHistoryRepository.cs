@@ -35,6 +35,12 @@ namespace soft_leave_mgt.Repository
             throw new NotImplementedException();
         }
 
+        public bool isExists(int id)
+        {
+            var exists = _db.LeaveTypes.Any(q => q.Id == id);
+            return exists;
+        }
+
         public bool Save()
         {
             throw new NotImplementedException();
