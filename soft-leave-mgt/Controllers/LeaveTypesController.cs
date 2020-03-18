@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using soft_leave_mgt.Contracts;
@@ -11,6 +12,7 @@ using soft_leave_mgt.Models;
 
 namespace soft_leave_mgt.Controllers
 {
+    [Authorize(Roles ="Administrator")]
     public class LeaveTypesController : Controller
     {
         private readonly ILeaveTypeRepository _repo;
@@ -21,6 +23,7 @@ namespace soft_leave_mgt.Controllers
             _repo = repo;
             _mapper = mapper;
         }
+        
         // GET: LeaveTypes
         public ActionResult Index()
         {
@@ -28,7 +31,7 @@ namespace soft_leave_mgt.Controllers
             var model = _mapper.Map<List<LeaveType>, List<LeaveTypeVM>>(leavetypes);
             return View(model);
         }
-
+        
         // GET: LeaveTypes/Details/5
         public ActionResult Details(int id)
         {
@@ -40,14 +43,14 @@ namespace soft_leave_mgt.Controllers
             var model = _mapper.Map<LeaveTypeVM>(leavetype);
             return View(model);
         }
-
+       
         // GET: LeaveTypes/Create
         public ActionResult Create()
         {
 
             return View();
         }
-
+       
         // POST: LeaveTypes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -78,7 +81,7 @@ namespace soft_leave_mgt.Controllers
                 return View(model);
             }
         }
-
+      
         // GET: LeaveTypes/Edit/5
         public ActionResult Edit(int id)
         {
@@ -90,7 +93,7 @@ namespace soft_leave_mgt.Controllers
             var model = _mapper.Map<LeaveTypeVM>(leavetype);
             return View(model);
         }
-
+       
         // POST: LeaveTypes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -118,7 +121,7 @@ namespace soft_leave_mgt.Controllers
                 return View(model);
             }
         }
-
+       
         // GET: LeaveTypes/Delete/5
         public ActionResult Delete(int id)
         {
