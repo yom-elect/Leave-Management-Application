@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using soft_leave_mgt.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,19 +9,19 @@ namespace soft_leave_mgt.SeedDataObjs
 {
     public static class SeedData
     {
-        public static void Seed(UserManager<IdentityUser> userManager,
+        public static void Seed(UserManager<Employee> userManager,
             RoleManager<IdentityRole> roleManager)
         {
             SeedRoles(roleManager);
             SeedUser(userManager);
         }
-        private static void SeedUser(UserManager<IdentityUser> userManager)
+        private static void SeedUser(UserManager<Employee> userManager)
         {
             if (userManager.FindByNameAsync("admin").Result == null)
             {
-                var user = new IdentityUser
+                var user = new Employee
                 {
-                    UserName = "admin",
+                    UserName = "admin@localhost.com",
                     Email = "admin@localhost.com"
                 };
                 var result = userManager.CreateAsync(user, "P@ssword1").Result;

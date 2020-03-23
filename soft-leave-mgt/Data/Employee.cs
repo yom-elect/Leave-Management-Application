@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using soft_leave_mgt.Data;
 
 namespace soft_leave_mgt.Data
 {
-    public class Employee : IdentityUser 
+    public class Employee : IdentityUser
     {
         public string Firstname { get; set; }
 

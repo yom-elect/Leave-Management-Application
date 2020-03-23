@@ -1,4 +1,5 @@
-﻿using soft_leave_mgt.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using soft_leave_mgt.Contracts;
 using soft_leave_mgt.Data;
 using System;
 using System.Collections.Generic;
@@ -15,24 +16,48 @@ namespace soft_leave_mgt.Repository
         {
             _db = db;
         }
+
+        public bool CheckAllocation(int leaveTypeId, string employeeId)
+        {
+            var period = DateTime.Now.Year;
+            return FindAll()
+                .Where(q => q.EmployeeId == employeeId && q.LeaveTypeId == leaveTypeId && q.Period == period)
+                .Any();
+        }
+
         public bool Create(LeaveAllocation entity)
         {
-            throw new NotImplementedException();
+            _db.LeaveAllocations.Add(entity);
+            return Save();
         }
 
         public bool Delete(LeaveAllocation entity)
         {
-            throw new NotImplementedException();
+            _db.LeaveAllocations.Remove(entity);
+            return Save();
         }
 
         public ICollection<LeaveAllocation> FindAll()
         {
-            throw new NotImplementedException();
+           var LeaveAllocations =  _db.LeaveAllocations
+                .Include(q=> q.LeaveType)
+                .ToList();
+            return LeaveAllocations;
         }
 
         public LeaveAllocation FindById(int id)
         {
-            throw new NotImplementedException();
+            var LeaveAllocation = _db.LeaveAllocations
+                 .Include(q => q.LeaveType)
+                 .Include(q => q.Employee)
+                 .FirstOrDefault(q => q.Id == id);
+            return LeaveAllocation;
+        }
+
+        public ICollection<LeaveAllocation> GetLeaveAllocationByEmployee(string id)
+        {
+            var period = DateTime.Now.Year;
+            return FindAll().Where(q => q.EmployeeId == id && q.Period == period).ToList();
         }
 
         public bool isExists(int id)
@@ -43,12 +68,14 @@ namespace soft_leave_mgt.Repository
 
         public bool Save()
         {
-            throw new NotImplementedException();
+            var changes = _db.SaveChanges();
+            return changes > 0;
         }
 
         public bool Update(LeaveAllocation entity)
         {
-            throw new NotImplementedException();
+            _db.LeaveAllocations.Update(entity);
+            return Save();
         }
     }
 }

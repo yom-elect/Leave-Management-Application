@@ -18,5 +18,8 @@ namespace soft_leave_mgt.Data
         public DbSet<LeaveType> LeaveTypes { get; set; }
         public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
         public DbSet<soft_leave_mgt.Models.LeaveTypeVM> DetailsLeaveTypeVM { get; set; }
+        public DbSet<soft_leave_mgt.Models.EmployeeVM> EmployeeVM { get; set; }
+        public DbSet<soft_leave_mgt.Models.LeaveAllocationVM> LeaveAllocationVM { get; set; }
+        public DbSet<soft_leave_mgt.Models.EditLeaveAllocationVM> EditLeaveAllocationVM { get; set; }
     }
 }
