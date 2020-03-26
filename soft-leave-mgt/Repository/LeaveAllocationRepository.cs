@@ -41,6 +41,7 @@ namespace soft_leave_mgt.Repository
         {
            var LeaveAllocations =  _db.LeaveAllocations
                 .Include(q=> q.LeaveType)
+                .Include(q => q.Employee)
                 .ToList();
             return LeaveAllocations;
         }
@@ -58,6 +59,14 @@ namespace soft_leave_mgt.Repository
         {
             var period = DateTime.Now.Year;
             return FindAll().Where(q => q.EmployeeId == id && q.Period == period).ToList();
+        }
+
+        public LeaveAllocation GetLeaveAllocationByEmployeeAndType(string id,int leavetypeid)
+        {
+            var period = DateTime.Now.Year;
+            return FindAll()
+                .FirstOrDefault(q => q.EmployeeId == id && q.Period == period && q.LeaveTypeId == leavetypeid);
+                
         }
 
         public bool isExists(int id)

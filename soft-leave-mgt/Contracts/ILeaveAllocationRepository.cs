@@ -10,6 +10,7 @@ namespace soft_leave_mgt.Contracts
     {
         bool CheckAllocation(int leaveTypeId, string employeeId);
         ICollection<LeaveAllocation> GetLeaveAllocationByEmployee(string id);
+        LeaveAllocation GetLeaveAllocationByEmployeeAndType(string id, int leavetypeid);
 
     }
 }
